@@ -1,103 +1,254 @@
-import Image from "next/image";
+"use client"
+import React, { useState, useEffect } from 'react';
+import { Award, Phone, Star, Clock, Shield } from 'lucide-react';
+import Link from 'next/link';
 
-export default function Home() {
+const page = () => {
+  const [searchLocation, setSearchLocation] = useState('');
+  const [activeTab, setActiveTab] = useState('rent');
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  const testimonials = [
+    {
+      name: "Priya Sharma",
+      role: "Software Engineer",
+      text: "Found my perfect 2BHK in Bangalore within a week. The verification process was thorough and transparent.",
+      location: "Bangalore"
+    },
+    {
+      name: "Rahul Gupta", 
+      role: "Marketing Manager",
+      text: "Excellent PG options near my office. Clean facilities and reasonable pricing made the decision easy.",
+      location: "Pune"
+    },
+    {
+      name: "Anjali Singh",
+      role: "Doctor",
+      text: "Professional service helped us buy our first home. The legal documentation support was invaluable.",
+      location: "Delhi"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleSearch = () => {
+    // Search functionality
+    console.log('Searching for:', searchLocation);
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  {/* Main Hero Section */}
+  <section className="relative min-h-screen flex ">
+
+  {/* Cover image at bottom */}
+  <div className="absolute bottom-0 w-full z-0 flex justify-center ">
+    <img 
+      //src="./cover-image.png" 
+      src="/cover-image.png"
+      alt="cover image" 
+      className="h-[520px] w-[1300px] "
+    />
+  </div>
+ 
+  {/* Hero content */}
+  <div className="container mx-auto px-6 lg:px-8 z-10 ">
+    <div className="max-w-4xl mx-auto text-center">
+      {/* Main heading */}
+      <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight transition-colors duration-300">
+        Property Solutions
+        <span className="block text-[#7F57F1] text-4xl lg:text-6xl mt-2">
+          Made Simple
+        </span>
+      </h1>
+      
+      <p className="text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-4 font-medium transition-colors duration-300">
+        Connecting tenants, buyers, and property owners across India
+      </p>
+      <p className="text-md text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto transition-colors duration-300">
+        Whether you need a PG room, family apartment, or investment property, 
+        we provide verified listings with complete transparency.
+      </p>
+    </div>
+  </div>
+</section>
+
+      {/* Services Section */}
+      <section className="py-10 transition-colors duration-300">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-300">
+              Why Property Owners Choose Us
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 transition-colors duration-300">
+              We provide end-to-end solutions for property management and tenant acquisition
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="text-center p-8">
+              <div className="bg-blue-100 dark:bg-blue-900/30 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
+                <Shield className="h-10 w-10 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Verified Tenants</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300">
+                Complete background verification including employment, 
+                identity, and reference checks for all potential tenants.
+              </p>
+            </div>
+
+            <div className="text-center p-8">
+              <div className="bg-emerald-100 dark:bg-emerald-900/30 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
+                <Clock className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Quick Rentals</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300">
+                Average property rental time of 15 days with our 
+                extensive database of verified tenants and buyers.
+              </p>
+            </div>
+
+            <div className="text-center p-8">
+              <div className="bg-purple-100 dark:bg-purple-900/30 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
+                <Award className="h-10 w-10 text-purple-600 dark:text-purple-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Legal Support</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300">
+                Complete documentation assistance including rental agreements, 
+                NOC, and property verification services.
+              </p>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 transition-colors duration-300">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-16 transition-colors duration-300">
+              Customer Experiences
+            </h2>
+            
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-700 p-8 lg:p-12 transition-colors duration-300">
+              <div className="flex items-center justify-center mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />
+                ))}
+              </div>
+              
+              <blockquote className="text-xl lg:text-2xl text-gray-700 dark:text-gray-300 text-center mb-8 leading-relaxed transition-colors duration-300">
+                "{testimonials[currentTestimonial].text}"
+              </blockquote>
+              
+              <div className="text-center">
+                <div className="font-bold text-gray-900 dark:text-white text-lg transition-colors duration-300">
+                  {testimonials[currentTestimonial].name}
+                </div>
+                <div className="text-gray-600 dark:text-gray-400 transition-colors duration-300">
+                  {testimonials[currentTestimonial].role} • {testimonials[currentTestimonial].location}
+                </div>
+              </div>
+
+              {/* Testimonial indicators */}
+              <div className="flex justify-center mt-8 space-x-3">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentTestimonial(index)}
+                    className={`w-3 h-3 rounded-full transition-colors ${
+                      index === currentTestimonial 
+                        ? 'bg-emerald-500' 
+                        : 'bg-gray-300 dark:bg-gray-600'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-[#7f57f1]">
+        <div className="container mx-auto px-6 lg:px-8 text-center">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              Start Your Property Search Today
+            </h2>
+            <p className="text-xl text-purple-100 mb-10">
+              Join thousands who have found their ideal homes through our platform
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <Link href='/rent'>
+                <button className="bg-white text-[#7f57f1] px-8 py-4 rounded-xl cursor-pointer font-semibold hover:bg-gray-100 transition-colors">
+                  Find Properties
+                </button>
+              </Link>
+
+              <Link href='/add-new-listing'>
+                <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold cursor-pointer">
+                  List Property
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 dark:bg-black text-gray-300 pt-12 pb-8 transition-colors duration-300">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="md:col-span-2">
+              <h3 className="text-2xl font-bold text-white mb-4">RentKaro</h3>
+              <p className="text-gray-400 dark:text-gray-500 mb-6 max-w-md transition-colors duration-300">
+                Making property search simple and transparent. 
+                Connecting property seekers with verified owners across India.
+              </p>
+              <div className="flex space-x-4">
+                <div className="flex items-center space-x-2">
+                  <Phone className="h-5 w-5 text-[#7f57f1]" />
+                  <span>+91 98765 43210</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+              <ul className="space-y-3">
+                <li className="hover:text-[#7f57f1] transition-colors cursor-pointer">Rent Properties</li>
+                <li className="hover:text-[#7f57f1] transition-colors cursor-pointer">Buy Properties</li>
+                <li className="hover:text-[#7f57f1] transition-colors cursor-pointer">PG Options</li>
+                <li className="hover:text-[#7f57f1] transition-colors cursor-pointer">List Property</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Support</h4>
+              <ul className="space-y-3">
+                <li className='hover:text-[#7f57f1] transition-colors cursor-pointer'>Help Center</li>
+                <li className="hover:text-[#7f57f1] transition-colors cursor-pointer">Contact Us</li>
+                <li className="hover:text-[#7f57f1] transition-colors cursor-pointer">Terms of Service</li>
+                <li className="hover:text-[#7f57f1] transition-colors cursor-pointer">Privacy Policy</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 dark:border-gray-700 mt-8 pt-8 text-center transition-colors duration-300">
+            <p className="text-gray-400 dark:text-gray-500 transition-colors duration-300">&copy; 2024 FindMyPG. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
-}
+};
+
+export default page;
